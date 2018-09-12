@@ -1,3 +1,4 @@
+```
 ###########################################################################
 # THE KITTI VISION BENCHMARK: DEPTH PREDICTION/COMPLETION BENCHMARKS 2017 #
 #       based on our publication Sparsity Invariant CNNs (3DV 2017)       #
@@ -9,6 +10,7 @@
 #          KIT Karlsruhe         ETH Zürich         MPI Tübingen          #
 #                                                                         #
 ###########################################################################
+```
 
 This file describes the 2017 KITTI depth completion and single image depth
 prediction benchmarks, consisting of 93k training and 1.5k test images.
@@ -21,7 +23,7 @@ Dataset description:
 
 If you unzip all downloaded files from the KITTI vision benchmark website
 into the same base directory, your folder structure will look like this:
-
+```
 |-- devkit
 |-- test_depth_completion_anonymous
   |-- image
@@ -67,48 +69,55 @@ into the same base directory, your folder structure will look like this:
   |-- velodyne_raw
     |-- 2011_xx_xx_drive_xxxx_sync_groundtruth_depth_xxxxxxxxxx_image_0x.png
     |-- ...
+```
 
-For train and val splits, the mapping from the KITTI raw dataset to our
+For `train` and `val` splits, the mapping from the KITTI raw dataset to our
 generated depth maps and projected raw laser scans can be extracted. All
 files are uniquely identified by their recording date, the drive ID as well
-as the camera ID (02 for left, 03 for right camera).
+as the camera ID (`02` for left, `03` for right camera).
 
 Submission instructions:
 ========================
 
 NOTE: WHEN SUBMITTING RESULTS, PLEASE STORE THEM IN THE SAME DATA FORMAT IN
 WHICH THE GROUND TRUTH DATA IS PROVIDED (SEE BELOW), USING THE FILE NAMES
-0000000000.png TO 0000000999.png (DEPTH COMPLETION) OR 0000000499.png (DEPTH
+`0000000000.png` TO `0000000999.png` (DEPTH COMPLETION) OR `0000000499.png` (DEPTH
 PREDICTION). CREATE A ZIP ARCHIVE OF THEM AND STORE YOUR RESULTS IN YOUR
-ZIP'S ROOT FOLDER:
+ZIP'S ROOT FOLDER
 
+```
 |-- zip
   |-- 0000000000.png
   |-- ...
   |-- 0000000999.png
+```
 
 Data format:
 ============
 
-Depth maps (annotated and raw Velodyne scans) are saved as uint16 PNG images,
+Depth maps (annotated and raw Velodyne scans) are saved as `uint16` PNG images,
 which can be opened with either MATLAB, libpng++ or the latest version of
-Python's pillow (from PIL import Image). A 0 value indicates an invalid pixel
+Python's pillow (`from PIL import Image`). A `0` value indicates an invalid pixel
 (ie, no ground truth exists, or the estimation algorithm didn't produce an
 estimate for that pixel). Otherwise, the depth for a pixel can be computed
-in meters by converting the uint16 value to float and dividing it by 256.0:
+in meters by converting the `uint16` value to float and dividing it by `256.0`:
 
+```
 disp(u,v)  = ((float)I(u,v))/256.0;
 valid(u,v) = I(u,v)>0;
+```
 
 Evaluation Code:
 ================
 
 For transparency we have included the benchmark evaluation code in the
-sub-folder 'cpp' of this development kit. It can be compiled by running
-the 'make.sh' script. Run it using two arguments:
+sub-folder `cpp` of this development kit. It can be compiled by running
+the `make.sh` script. Run it using two arguments:
 
-./evaluate_depth gt_dir prediction_dir
+```
+./evaluate_depth <gt_dir> <prediction_dir>
+```
 
-Note that gt_dir is most likely '../../val_selection_cropped/groundtruth_depth'
+Note that `gt_dir` is most likely `../../val_selection_cropped/groundtruth_depth`
 if you unzipped all files in the same base directory. We also included a sample
-result of our proposed approach for the validation split ('predictions/sparseConv_val').
+result of our proposed approach for the validation split (`predictions/sparseConv_val`).
